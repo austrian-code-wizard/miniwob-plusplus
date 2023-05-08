@@ -110,7 +110,7 @@ class MiniWoBEnvironment(gym.Env, ABC):
 
     def reset(
         self,
-        seed: Optional[int] = None,
+        seed: Optional[List[int]] = None,
         options: Optional[Mapping[str, Any]] = None,
     ) -> Tuple[List[Observation], List[Dict[str, Any]]]:
         """Reset the instance.
@@ -128,8 +128,10 @@ class MiniWoBEnvironment(gym.Env, ABC):
         """
         # The seed in Env is actually not used
         if seed is None:
-            seed = np.random.randint(0, 2 ** 31)
-        super().reset(seed=seed)
+            seed = [np.random.randint(0, 2 ** 31) for _ in range(self.num_instances)]
+        assert len(seed) == self.num_instances, "Must pass in as many seeds as underlying instances"
+        # super().reset(seed=seed)
+        super().reset()
         # Hard reset the instances if needed
         self._hard_reset_instance()
         # Process the options
@@ -143,7 +145,7 @@ class MiniWoBEnvironment(gym.Env, ABC):
         infos = [{} for _ in range(self.num_instances)]
         for instance in self.instances:
             # Unsuring seeds are unique
-            instance.call(instance.reset, obs, infos, seed * self.num_instances + instance.index)
+            instance.call(instance.reset, obs, infos, seed[instance.index])
         for instance in self.instances:
             instance.wait()
         self.dones = [False] * self.num_instances

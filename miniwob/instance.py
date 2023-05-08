@@ -85,7 +85,7 @@ class MiniWoBInstance(Thread):
         self.daemon = True
         self.died = False
         self.index = index
-        self.headless = headless
+        self.headless = True
         base_url = base_url or DEFAULT_BASE_URL
         if subdomain.startswith("flight."):
             assert not base_url.startswith("file://"), (
@@ -183,8 +183,7 @@ class MiniWoBInstance(Thread):
                     9000, 30 + self.index * (self.window_height + 30)
                 )
             )
-        # Todo: remove hard coded driver path
-        self.driver = webdriver.Chrome(executable_path="/Users/moritzstephan/Projects/miniwob-plusplus/chromedriver", options=options)
+        self.driver = webdriver.Chrome(options=options)
         self.driver.implicitly_wait(5)
         if self.headless:
             self.driver.get(self.url)

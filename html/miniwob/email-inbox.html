@@ -206,7 +206,8 @@ var EMAIL_ACTIONS = ['reply', 'forward', 'delete', 'important'];
 
 var generateEmails = function(){
   var emails = [];
-  var n = core.randi(4, MAX_EMAILS);
+  //var n = core.randi(4, MAX_EMAILS);
+  var n = MAX_EMAILS;
   for(var i=0;i<n;i++){
     var email = {};
     email.name = core.sample(ui_utils.PEOPLE_NAMES);

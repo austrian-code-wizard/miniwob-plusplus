@@ -200,9 +200,13 @@ var FORWARD_TEMPLATE =
 </div>
 `
 
-var MAX_EMAILS = 12;
+//var MAX_EMAILS = 12;
+var MAX_EMAILS = 10;
 var EMAIL_ACTIONS = ['reply', 'forward', 'delete', 'important'];
-
+var fontSizeIdx = null;
+var fontSize = null;
+var fontSizes = {'small': '4px', 'medium': '10px', 'large': '16px'};
+var all_emails = null;
 
 var generateEmails = function(){
   var emails = [];
@@ -216,7 +220,9 @@ var generateEmails = function(){
 
     emails.push(email);
   }
-
+  fontSizeIdx = core.randi(0, emails.length);
+  fontSize = core.sample(Object.keys(fontSizes));
+  all_emails = emails;
   return emails;
 }
 
@@ -268,6 +274,10 @@ var showEmail = function(email, expectedDetails){
   emailDiv.getElementsByClassName('email-sender')[0].innerHTML = email.name;
   emailDiv.getElementsByClassName('email-subject')[0].innerHTML = email.subject;
   emailDiv.getElementsByClassName('email-body')[0].innerHTML = email.body;
+
+  if (email.name == all_emails[fontSizeIdx].name && email.subject == all_emails[fontSizeIdx].subject && email.body == all_emails[fontSizeIdx].body) {
+    emailDiv.getElementsByClassName('email-body')[0].setAttribute('style', `font-size:${fontSizes[fontSize]}`);
+  }
 
   $('#main').addClass('hide');
   $('#search').addClass('hide');
@@ -344,6 +354,7 @@ var clickEmail = function(e){
   var email = emails[parseInt(emailIndex,10)];
   showEmail(email, expectedDetails);
 
+  /*
   $('#email .email-reply').on('click', function(){
     showReply(email);
     $('#close-reply').on('click', cancelReply);
@@ -378,6 +389,7 @@ var clickEmail = function(e){
       }
     });
   });
+  */
 }
 
 var cancelReply = function(){

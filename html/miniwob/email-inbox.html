@@ -220,7 +220,8 @@ var generateEmails = function(){
 
     emails.push(email);
   }
-  fontSizeIdx = core.randi(0, emails.length);
+  // fontSizeIdx = core.randi(0, emails.length);
+  fontSizeIdx = 0;
   fontSize = core.sample(Object.keys(fontSizes));
   all_emails = emails;
   return emails;

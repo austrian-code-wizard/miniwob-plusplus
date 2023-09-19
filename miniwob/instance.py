@@ -183,8 +183,9 @@ class MiniWoBInstance(Thread):
                     9000, 30 + self.index * (self.window_height + 30)
                 )
             )
-        self.driver = webdriver.Chrome(options=options)
-        self.driver.implicitly_wait(5)
+        self.driver = webdriver.Chrome(options=options, executable_path="/iris/u/moritzst/miniwob-plusplus/chromedriver")
+        # TODO: figure out why this wait statement is here
+        #self.driver.implicitly_wait(5)
         if self.headless:
             self.driver.get(self.url)
         try:

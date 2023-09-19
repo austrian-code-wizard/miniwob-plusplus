@@ -618,7 +618,6 @@ FIELD_EXTRACTORS["email-inbox-star-reply"] = FIELD_EXTRACTORS[
     "email-inbox"
 ] = FIELD_EXTRACTORS["email-inbox-noscroll"] = _extract_email_inbox
 
-
 def _extract_email_inbox_nl(utterance):
     # Natural language version: no fields at test time
     return Fields({})

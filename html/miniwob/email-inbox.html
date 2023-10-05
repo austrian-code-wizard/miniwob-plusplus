@@ -56,7 +56,7 @@
 #email .email-header { height: 40px; }
 #email .email-body { padding: 4px; min-height: 40px; }
 #email .email-subject { font-weight: 100; font-size: 12px; padding: 2px 5px; border-bottom: 1px solid #C9C9C9; }
-#email .email-sender { font-weight: 100; font-size: 9px; }
+#email .email-sender { font-weight: bold; font-size: 11px; }
 #email .email-send { text-align: center; cursor: pointer; border-top: 1px solid #C9C9C9; padding: 3px; }
 #email .email-send span { width: 40px; text-align: center; display: inline-block; font-size: 8px; }
 .email-reply .icon { content:url(../common/special/email-inbox/reply.png); height: 18px; margin: 0 auto; }
@@ -218,7 +218,8 @@ var generateEmails = function(){
   // var n = MAX_EMAILS;
   var n = 7;
   sampled_fontsizes = [];
-  sampled_symbols = core.shuffle(SYMBOLS);
+  sampled_symbols = [...SYMBOLS];
+  sampled_symbols = core.shuffle(sampled_symbols);
   for(var i=0;i<n;i++){
     var email = {};
     var name = core.sample(ui_utils.PEOPLE_NAMES);
